@@ -1,33 +1,23 @@
 package com.example.threadpool;
 
-import java.util.concurrent.TimeUnit;
-
 public class Main {
-    public static void main(String[] args) throws InterruptedException {
+    public static void main(String[] args) {
         CustomThreadPool pool = new CustomThreadPool(
-            2,  // corePoolSize
-            4,  // maxPoolSize
-            5,  // keepAliveTime
-            TimeUnit.SECONDS,
-            5,  // queueSize
-            1   // minSpareThreads
+            2, 4, 5, TimeUnit.SECONDS, 10, 1
         );
 
-        // Тестовые задачи
-        for (int i = 0; i < 10; i++) {
-            final int taskId = i;
+        for (int i = 0; i < 20; i++) {
+            int taskId = i;
             pool.execute(() -> {
-                System.out.println("[Task] Started task #" + taskId + " in " + Thread.currentThread().getName());
+                System.out.println("Task " + taskId + " started");
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
                 }
-                System.out.println("[Task] Finished task #" + taskId);
             });
         }
 
-        Thread.sleep(10000);
         pool.shutdown();
     }
 }
