@@ -1,0 +1,10 @@
+# Игнорируемые файлы
+*.class
+*.log
+/target/
+/bin/
+/.settings/
+/.project
+/.classpath
+/.idea/
+*.iml
